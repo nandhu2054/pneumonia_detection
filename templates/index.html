@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pneumonia Detection</title>
+</head>
+<body>
+  <h1>Pneumonia Detection</h1>
+  <form id="uploadForm" enctype="multipart/form-data" method="post">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Upload & Predict</button>
+  </form>
+  <h2 id="result"></h2>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch("/", { method: "POST", body: formData });
+      const data = await response.json();
+      document.getElementById("result").innerText = `Prediction: ${data.prediction}`;
+    });
+  </script>
+</body>
+</html>
